@@ -57,9 +57,6 @@ grepAppend () {
 while : 
  do
       grep -i $lookFor $inputPath >> $lookFor.txt 
-###2.)searches in file (indicated in this script,) for any version of the $lookFor variable and makes 
-###a seperate file $lookFor.txt in same directory as input file. It copys the
-###whole matching line to new file or appends to the file that already exists if set up as CRON job. 
       if [ $? -eq 0 ] ; then
         echo "$lookFor found and writing to file, check current directory for $lookFor.txt"
 	exit
