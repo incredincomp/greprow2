@@ -90,7 +90,6 @@ nextSearch () {
 getPath
 whatFind
 grepAppend
-
 }
 
 getPath
