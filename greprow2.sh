@@ -71,6 +71,12 @@ while :
 echo "Search ended at" $(date -u)
 }
 
+nextSearch () {
+getPath
+whatFind
+grepAppend
+}
+
 nextStep () {
 echo -n "Would you like to run another search? [y or n] "
 read reFind
@@ -86,11 +92,7 @@ case $reFind in
 	    ;;
 }
 
-nextSearch () {
-getPath
-whatFind
-grepAppend
-}
+
 
 getPath
 whatFind
