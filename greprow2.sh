@@ -28,20 +28,23 @@ echo " If you would like to define your own path, please press y. Otherwise, if 
 echo -n "y or n: " 
 read answer
 case $answer in
-
+# in theory, the "return 1 and 0's" should allow this to error check in a sense. to be tested, 
+# https://unix.stackexchange.com/questions/268764/how-to-repeat-prompt-to-user-in-a-shell-script
             [yY] )
                    read -p "Please type your full file path, starting with a backslash if its absolute. Its more than likely equal to $PWD/file.txt: " inputPath
-
+                   return 0
                    ;;
 
             [nN] )
                    echo "okay, were going to just use $PWD/log.txt for you."
                    inputPath="$PWD/log.txt"
+		   return 0
 		   ;;
 
-            * ) echo "Invalid input"
-                continue
-		;;
+               * ) 
+	           echo "Invalid input"
+                   return 1
+		   ;;
 esac
 }
 
@@ -69,7 +72,7 @@ echo "Search ended at" $(date -u)
 }
 
 nextStep () {
-echo -n "Would you like to run another search? "
+echo -n "Would you like to run another search? [y or n] "
 read reFind
 case $reFind in
             [yY] )
