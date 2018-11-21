@@ -23,6 +23,14 @@
 
 set -o nounset                              # Treat unset variables as an error
 
+
+nextSearch () {
+getPath
+whatFind
+grepAppend
+nextStep
+}
+
 getPath () {
 echo " If you would like to define your own path, please press y. Otherwise, if you want this program to break, please press n. "
 echo -n "y or n: " 
@@ -62,20 +70,16 @@ while :
       grep -i $lookFor $inputPath >> $lookFor.txt 
       if [ $? -eq 0 ] ; then
         echo "$lookFor found and writing to file, check current directory for $lookFor.txt"
-	exit
+        echo "Search ended at" $(date -u)
+	break
       else
         echo "Error, $lookFor not found in specified file."
-	exit
+	nextStep
       fi
     done
-echo "Search ended at" $(date -u)
 }
 
-nextSearch () {
-getPath
-whatFind
-grepAppend
-}
+
 
 nextStep () {
 echo -n "Would you like to run another search? [y or n] "
@@ -90,6 +94,7 @@ case $reFind in
 	    echo "Okay, thanks for finding me useful! See you next time!"
 	    exit
 	    ;;
+esac
 }
 
 
