@@ -32,36 +32,26 @@ nextStep
 }
 
 getPath () {
-clear
-printf " If you would like to define your own path, please press y.  Pressing n will set your path as $PWD/log.txt. "
-echo "  "
-printf '%*s\n' "${COLUMNS:-$(tput cols)}" '' | tr ' ' -
+echo " If you would like to define your own path, please press y. Otherwise, if you want this program to break, please press n. "
 while true; do
-    echo "  "
     echo -n "y or n: " 
     read answer
-#    echo "  "
-#    echo "______________________________________________________________"
-    printf '%*s\n' "${COLUMNS:-$(tput cols)}" '' | tr ' ' -
+    echo "______________________________________________________________"
     case $answer in
 # in theory, the "return 1 and 0's" should allow this to error check in a sense. to be tested, 
 # https://unix.stackexchange.com/questions/268764/how-to-repeat-prompt-to-user-in-a-shell-script
                 [yY] )
-#                       clear
-                       echo "__________________________________________________"
-                       read -p "Please type your full file path, starting with a backslash if it is absolute. It's more than likely equal to $PWD/file.txt: " inputPath
+                       read -p "Please type your full file path, starting with a backslash if its absolute. Its more than likely equal to $PWD/file.txt: " inputPath
                        return 0
                        ;;
 
                 [nN] )
-#                       clear
-                       echo "Okay, we're going to just use $PWD/log.txt for you."
+                       echo "okay, were going to just use $PWD/log.txt for you."
                        inputPath="$PWD/log.txt"
 	    	       return 0
 		       ;;
 
                    * ) 
-#                       clear
 	               echo "Invalid input"
                        return 1
 		       ;;
@@ -70,13 +60,9 @@ done
 }
 
 whatFind () { 
-echo "	"
-echo -n "What linformation would you like to find? "
+echo -n "What lines would you like to find? "
 read lookFor
-echo "	"
-echo "Looking for $lookFor... Please wait... "
-echo "Search Start Time : " $(date -u)
-printf '%*s\n' "${COLUMNS:-$(tput cols)}" '' | tr ' ' -
+echo "Looking for $lookFor... please wait" | echo "Search Start Time : " $(date -u)
 }
 
 grepAppend () {
@@ -86,15 +72,11 @@ while :
  do
       grep -i $lookFor $inputPath >> $lookFor.txt 
       if [ $? -eq 0 ] ; then
-        echo "	"
         echo "$lookFor found and writing to file, check current directory for $lookFor.txt"
-        echo "Search ended at " $(date -u)
-        printf '%*s\n' "${COLUMNS:-$(tput cols)}" '' | tr ' ' -
+        echo "Search ended at" $(date -u)
 	break
       else
-        echo "	"
         echo "Error, $lookFor not found in specified file."
-        printf '%*s\n' "${COLUMNS:-$(tput cols)}" '' | tr ' ' -
 	nextStep
       fi
     done
@@ -103,10 +85,8 @@ while :
 
 
 nextStep () {
-echo "	"
-echo -n "Would you like to run another search? [y or n]: "
+echo -n "Would you like to run another search? [y or n] "
 read reFind
-printf '%*s\n' "${COLUMNS:-$(tput cols)}" '' | tr ' ' -
 case $reFind in
             [yY] )
 	    nextSearch
@@ -114,9 +94,8 @@ case $reFind in
 	    
 	    ;;
 	    [nN] )
-	    echo "Okay, I hope you found me useful! See you next time!"
-            printf '%*s\n' "${COLUMNS:-$(tput cols)}" '' | tr ' ' -
-            exit
+	    echo "Okay, thanks for finding me useful! See you next time!"
+	    exit
 	    ;;
 esac
 }
