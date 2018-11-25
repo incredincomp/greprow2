@@ -43,11 +43,13 @@ case $response in
 	
 	;;
     1)
-        echo "Okay, we set the path as $PWD\log.txt."
+        clear
+	echo "Okay, we set the path as $PWD\log.txt."
 	FILEPATH="$PWD/log.txt"
 	;;
     255)
-        echo "[ESC] key pressed."
+        clear
+	echo "[ESC] key pressed."
 	;;
 esac
 }
@@ -59,10 +61,13 @@ FILEPATH=`$DIALOG --stdout --title "Please choose a file" --fselect $HOME/ 14 48
 
 case $? in
 	0)
+		clear
 		echo "\"$FILEPATH\" chosen";;
 	1)
+		clear
 		echo "Cancel pressed.";;
 	255)
+		clear
 		echo "Box closed.";;
 esac
 }
