@@ -42,7 +42,7 @@ case $response in
 	;;
     1)
         echo "Okay, we set the path as $PWD\log.txt."
-	inputPath="$PWD/log.txt"
+	FILEPATH="$PWD/log.txt"
 	;;
     255)
         echo "[ESC] key pressed."
