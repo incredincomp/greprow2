@@ -31,23 +31,32 @@ grepAppend
 nextStep
 }
 
-getPath2 () {
-PS3='Select an option and press Enter: '
-options=("yes" "no")
-select $opt in $options; do
-        "yes" )
-	        read -p "Please type your full file path, starting with a backslash if it is absolute. It's more than likely equal to $PWD/file.txt: " inputPath
-		break
-		;;
-	"no" )
-	        echo "Okay, we're going to just use $PWD/log.txt for you."
-                inputPath="$PWD/log.txt"
-		break
-		;;
-		
-	*) echo "Invalid option. Try again.";;
+needPath () {
+
 }
 
+getPath2 () {
+#this is a function set up to call a dialog box for user to select a file to parse 
+prompt="Please select a file:"
+options=( $(find -maxdepth 1 -print0 | xargs -0) )
+
+PS3="$prompt "
+select opt in "${options[@]}" "Quit" ; do
+        if (( REPLY == 1 + ${options[@]} )) ; then
+	    exit
+		
+		
+	elif (( REPLY > 0 && REPLY <= ${#options[@]} )) ; then
+	    echo "You picked $opt which is file $REPLY"
+	    break
+		
+	else
+	    echo "Invalid option. Try again." ;
+	fi
+done
+}
+read -p "Please type your full file path, starting with a backslash if it is absolute. It's more than likely equal to $PWD/file.txt: " inputPath
+		break
 getPath () {
 clear
 printf " If you would like to define your own path, please press y.  Pressing n will set your path as $PWD/log.txt. "
