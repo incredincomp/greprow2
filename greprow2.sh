@@ -35,11 +35,11 @@ getPath2 () {
 PS3='Select an option and press Enter: '
 options=("yes" "no")
 select $opt in $options; do
-        "yes")
+        "yes" )
 	        read -p "Please type your full file path, starting with a backslash if it is absolute. It's more than likely equal to $PWD/file.txt: " inputPath
 		break
 		;;
-	"no")
+	"no" )
 	        echo "Okay, we're going to just use $PWD/log.txt for you."
                 inputPath="$PWD/log.txt"
 		break
