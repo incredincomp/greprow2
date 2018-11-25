@@ -66,23 +66,23 @@ esac
 }
 #get_Path2 () {
 #this is a function set up to call a dialog box for user to select a file to parse 
-prompt="Please select a file:"
-options=( $(find -maxdepth 1 -print0 | xargs -0) )
+#prompt="Please select a file:"
+#options=( $(find -maxdepth 1 -print0 | xargs -0) )
 
-PS3="$prompt "
-select input in "${options[@]}" "Quit" ; do
-        if (( REPLY > 0 && REPLY <= ${#options[@]} )) ; then
-	    echo "You picked $input which is file $REPLY"
-	    break
-		
-		
-	elif (( REPLY == 1 + ${options[@]} )) ; then
-	    exit
-		
-	else
-	    echo "Invalid option. Try again." ;
-	fi
-done
+#PS3="$prompt "
+#select input in "${options[@]}" "Quit" ; do
+#        if (( REPLY > 0 && REPLY <= ${#options[@]} )) ; then
+#	    echo "You picked $input which is file $REPLY"
+#	    break
+#		
+#		
+#	elif (( REPLY == 1 + ${options[@]} )) ; then
+#	    exit
+#		
+#	else
+#	    echo "Invalid option. Try again." ;
+#	fi
+#done
 #}
 
 #read -p "Please type your full file path, starting with a backslash if it is absolute. It's more than likely equal to $PWD/file.txt: " inputPath
