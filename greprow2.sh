@@ -38,7 +38,9 @@ response=$?
 case $response in
     0)
     #send user to get path dialog
-        set_Path
+        clear
+	set_Path
+	
 	;;
     1)
         echo "Okay, we set the path as $PWD\log.txt."
@@ -151,7 +153,7 @@ while :
         echo "	"
         echo "Error, $lookFor not found in specified file."
         printf '%*s\n' "${COLUMNS:-$(tput cols)}" '' | tr ' ' -
-	nextStep
+	next_Step
       fi
     done
 }
@@ -165,7 +167,7 @@ read reFind
 printf '%*s\n' "${COLUMNS:-$(tput cols)}" '' | tr ' ' -
 case $reFind in
             [yY] )
-	    nextSearch
+	    next_Search
 	    
 	    
 	    ;;
