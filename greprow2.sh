@@ -55,8 +55,9 @@ select opt in "${options[@]}" "Quit" ; do
 	fi
 done
 }
-read -p "Please type your full file path, starting with a backslash if it is absolute. It's more than likely equal to $PWD/file.txt: " inputPath
-		break
+
+#read -p "Please type your full file path, starting with a backslash if it is absolute. It's more than likely equal to $PWD/file.txt: " inputPath
+
 getPath () {
 clear
 printf " If you would like to define your own path, please press y.  Pressing n will set your path as $PWD/log.txt. "
