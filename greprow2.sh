@@ -31,9 +31,8 @@ grepAppend
 nextStep
 }
 
-needPath () {
-
-}
+#needPath () {
+#}
 
 getPath2 () {
 #this is a function set up to call a dialog box for user to select a file to parse 
