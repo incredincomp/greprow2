@@ -24,16 +24,6 @@
 set -o nounset                              # Treat unset variables as an error
 
 
-welcome_Banner () {
-echo "  _    _        _                                _           _____                                         _____ ";
-echo " | |  | |      | |                              | |         |  __ \                                       / __  \";
-echo " | |  | |  ___ | |  ___  ___   _ __ ___    ___  | |_  ___   | |  \/ _ __  ___  _ __   _ __  ___ __      __\_' / /";
-echo " | |/\| | / _ \| | / __|/ _ \ | '_ \` _ \  / _ \ | __|/ _ \  | | __ | '__|/ _ \| '_ \ | '__|/ _ \\ \ /\ / /  / / ";
-echo " \  /\  /|  __/| || (__| (_) || | | | | ||  __/ | |_| (_) | | |_\ \| |  |  __/| |_) || |  | (_) |\ V  V / ./ /___";
-echo "  \/  \/  \___||_| \___|\___/ |_| |_| |_| \___|  \__|\___/   \____/|_|   \___|| .__/ |_|   \___/  \_/\_/  \_____/";
-echo "                                                                              | |                                ";
-echo "                                                                              |_|                                ";
-}
 
 next_Search () {
 yes_no
@@ -73,7 +63,7 @@ FILEPATH=`$DIALOG --stdout --title "Please choose a file" --fselect $HOME/ 14 48
 case $? in
 	0)
 		clear
-		welcome_Banner
+		
 		echo "\$FILEPATH" chosen";;
 	1)
 		clear
