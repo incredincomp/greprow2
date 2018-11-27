@@ -6,19 +6,19 @@
 #         USAGE: ./greprow2.sh 
 # 
 #   DESCRIPTION: Enter any information that could be contained in your list, this will
-#		pull the entire line that is related to that name and print/append the data
+#		pull the entire line that is related to that search term and print/append the data
 #		to a new file with the name of the search issued.  needs format work,
 #		much apologies
 # 
 #       OPTIONS: ---
-#  REQUIREMENTS: you need to have the .txt file in a location you know, and put that
-#		path in as the input in comment #1
+#  REQUIREMENTS: you need to have a .txt file in a location you know
+#		
 #          BUGS: none as far as I know of in its current state
-#         NOTES: v1.1.1
+#         NOTES: v1.2.1
 #        AUTHOR: @incredincomp & @Venom404
 #  ORGANIZATION: 
 #       CREATED: 09/20/2018 06:32:54 PM
-#      REVISION:  11/17/2018 11:45:00 AM
+#      REVISION:  11/26/2018 10:35:00 AM
 #===============================================================================
 
 set -o nounset                              # Treat unset variables as an error
@@ -71,6 +71,7 @@ case $? in
 		echo "Box closed.";;
 esac
 }
+#depreciated
 #get_Path2 () {
 #this is a function set up to call a dialog box for user to select a file to parse 
 #prompt="Please select a file:"
@@ -94,7 +95,7 @@ esac
 
 #read -p "Please type your full file path, starting with a backslash if it is absolute. It's more than likely equal to $PWD/file.txt: " inputPath
 
-get_Path () {
+get_Path () {  #depreciated
 clear
 printf " If you would like to define your own path, please press y.  Pressing n will set your path as $PWD/log.txt. "
 echo "  "
@@ -134,7 +135,7 @@ done
 
 what_Find () { 
 echo "	"
-echo -n "What linformation would you like to find? "
+echo -n "What information would you like to find? "
 read lookFor
 echo "	"
 echo "Looking for $lookFor... Please wait... "
@@ -181,6 +182,10 @@ case $reFind in
             printf '%*s\n' "${COLUMNS:-$(tput cols)}" '' | tr ' ' -
             exit
 	    ;;
+	    
+#could break	    *) 
+#need test	    echo "ERROR. Please press y or n."
+#	    next_step
 esac
 }
 
