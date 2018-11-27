@@ -3,7 +3,7 @@
 #
 #          FILE: greprow2.sh
 # 
-#         USAGE: ./greprow2.sh 
+#         USAGE: sudo ./greprow2.sh 
 # 
 #   DESCRIPTION: Enter any information that could be contained in your list, this will
 #		pull the entire line that is related to that search term and print/append the data
@@ -14,16 +14,17 @@
 #  REQUIREMENTS: you need to have a .txt file in a location you know
 #		
 #          BUGS: none as far as I know of in its current state
-#         NOTES: v1.2.1
+#         NOTES: v1.2.2
 #        AUTHOR: @incredincomp & @Venom404
 #  ORGANIZATION: 
 #       CREATED: 09/20/2018 06:32:54 PM
-#      REVISION:  11/26/2018 10:35:00 AM
+#      REVISION:  11/27/2018 10:35:00 AM
 #===============================================================================
 
 set -o nounset                              # Treat unset variables as an error
 
-
+#this is just a weird function that I dont think i need.  at the end tho, part of the switch case calls for a repeat of the
+#program functions so hey, why not make it easier on the program and compile it here?
 next_Search () {
 yes_no
 what_Find
@@ -31,6 +32,7 @@ grep_Append
 next_Step
 }
 
+#function to ask user if they would like to define their own file path, if not, the program declares greprow2/log.txt as input
 yes_no () {
 dialog --title "Define your own file/path?" \
 --yesno "If you select no, $PWD/log.txt will be used." 7 60
@@ -54,6 +56,8 @@ case $response in
 esac
 }
 
+#this function brings up a dialog menu to help you select your file path.  dialog boxes are slightly difficult to navigate for
+#noobs so i need to figure out either a way to tell a user how to use it, or change the set_Path function again
 set_Path () {
 DIALOG=${DIALOG=dialog}
 
@@ -71,69 +75,10 @@ case $? in
 		echo "Box closed.";;
 esac
 }
-#depreciated
-#get_Path2 () {
-#this is a function set up to call a dialog box for user to select a file to parse 
-#prompt="Please select a file:"
-#options=( $(find -maxdepth 1 -print0 | xargs -0) )
 
-#PS3="$prompt "
-#select input in "${options[@]}" "Quit" ; do
-#        if (( REPLY > 0 && REPLY <= ${#options[@]} )) ; then
-#	    echo "You picked $input which is file $REPLY"
-#	    break
-#		
-#		
-#	elif (( REPLY == 1 + ${options[@]} )) ; then
-#	    exit
-#		
-#	else
-#	    echo "Invalid option. Try again." ;
-#	fi
-#done
-#}
 
-#read -p "Please type your full file path, starting with a backslash if it is absolute. It's more than likely equal to $PWD/file.txt: " inputPath
-
-get_Path () {  #depreciated
-clear
-printf " If you would like to define your own path, please press y.  Pressing n will set your path as $PWD/log.txt. "
-echo "  "
-printf '%*s\n' "${COLUMNS:-$(tput cols)}" '' | tr ' ' -
-while true; do
-    echo "  "
-    echo -n "y or n: " 
-    read answer
-#    echo "  "
-#    echo "______________________________________________________________"
-    printf '%*s\n' "${COLUMNS:-$(tput cols)}" '' | tr ' ' -
-    case $answer in
-# in theory, the "return 1 and 0's" should allow this to error check in a sense. to be tested, 
-# https://unix.stackexchange.com/questions/268764/how-to-repeat-prompt-to-user-in-a-shell-script
-                [yY] )
-#                       clear
-                       echo "__________________________________________________"
-                       read -p "Please type your full file path, starting with a backslash if it is absolute. It's more than likely equal to $PWD/file.txt: " inputPath
-                       return 0
-                       ;;
-
-                [nN] )
-#                       clear
-                       echo "Okay, we're going to just use $PWD/log.txt for you."
-                       FILEPATH="$PWD/log.txt"
-	    	       return 0
-		       ;;
-
-                   * ) 
-#                       clear
-	               echo "Invalid input"
-                       return 1
-		       ;;
-    esac
-done
-}
-
-what_Find () { 
+#this function collects the variable that is used to search the specified file and stores it as lookFor
+what_Find () {  
 echo "	"
 echo -n "What information would you like to find? "
 read lookFor
@@ -165,7 +110,8 @@ while :
 }
 
 
-
+#this function is the final slide of the actual program. this will just ask if you would like to restart the program for another
+#search
 next_Step () {
 echo "	"
 echo -n "Would you like to run another search? [y or n]: "
@@ -186,11 +132,13 @@ case $reFind in
 #could break	    *) 
 #need test	    echo "ERROR. Please press y or n."
 #	    next_step
+#            ;;
 esac
 }
 
 
-
+#once bash finishes reading functions, the initial search is called here.  When getting to next_Step, if user selects yes
+#next_Search will be called which is another previously declared function including these same commands.
 yes_no
 what_Find
 grep_Append
