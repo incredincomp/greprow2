@@ -40,19 +40,18 @@ response=$?
 case $response in
     0)
     #send user to set_Path dialog
-        clear
-	set_Path
-	
-	;;
+       clear
+       set_Path
+       ;;
     1)
-        clear
-	echo "Okay, we set the path as $PWD\log.txt."
-	FILEPATH="$PWD/log.txt"
-	;;
+       clear
+       echo "Okay, we set the path as $PWD\log.txt."
+       FILEPATH="$PWD/log.txt"
+       ;;
     255)
-        clear
-	echo "[ESC] key pressed."
-	;;
+       clear
+       echo "[ESC] key pressed."
+       ;;
 esac
 }
 
@@ -66,8 +65,7 @@ if [ -e "$FILEPATH" ]
 then 
    case $? in
        0)
-               clear
-                
+               clear                
                echo "\"$FILEPATH\" chosen";;
        1)
                clear
@@ -102,20 +100,20 @@ grep_Append () {
 ###DO NOT TOUCH!!!! THIS SHOULDNT WORK, SO THEREFORE ITS PERFECTLY BROKEN AS IS!!!!###
 while : 
  do
-      grep -i $lookFor $FILEPATH >> $lookFor.txt 
-      if [ $? -eq 0 ] ; then
-        echo "	"
-        echo "$lookFor found and writing to file, check current directory for $lookFor.txt"
-        echo "Search ended at " $(date -u)
-        printf '%*s\n' "${COLUMNS:-$(tput cols)}" '' | tr ' ' -
-	break
-      else
-        echo "	"
-        echo "Error, $lookFor not found in specified file."
-        printf '%*s\n' "${COLUMNS:-$(tput cols)}" '' | tr ' ' -
-	next_Step
-      fi
-    done
+     grep -i $lookFor $FILEPATH >> $lookFor.txt 
+     if [ $? -eq 0 ] ; then
+       echo "	"
+       echo "$lookFor found and writing to file, check current directory for $lookFor.txt"
+       echo "Search ended at " $(date -u)
+       printf '%*s\n' "${COLUMNS:-$(tput cols)}" '' | tr ' ' -
+       break
+     else
+       echo "	"
+       echo "Error, $lookFor not found in specified file."
+       printf '%*s\n' "${COLUMNS:-$(tput cols)}" '' | tr ' ' -
+       next_Step
+     fi
+ done
 }
 
 trick_Step () {
@@ -129,21 +127,21 @@ echo -n "Would you like to run another search? [y or n]: "
 read reFind
 printf '%*s\n' "${COLUMNS:-$(tput cols)}" '' | tr ' ' -
 case $reFind in
-            [yY] )
-	    next_Search
+               [yY] )
+	             next_Search
 	    
 	    
-	    ;;
-	    [nN] )
-	    echo "Okay, I hope you found me useful! See you next time!"
-            printf '%*s\n' "${COLUMNS:-$(tput cols)}" '' | tr ' ' -
-            exit
-	    ;;
+                     ;;
+	       [nN] )
+	             echo "Okay, I hope you found me useful! See you next time!"
+                     printf '%*s\n' "${COLUMNS:-$(tput cols)}" '' | tr ' ' -
+                     exit
+	             ;;
 	    
-	    *) 
-	    echo "ERROR. Please press y or n."
-	    trick_Step
-            ;;
+	       *) 
+	             echo "ERROR. Please press y or n."
+	             trick_Step
+                     ;;
 esac
 }
 
