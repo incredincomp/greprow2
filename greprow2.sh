@@ -66,7 +66,7 @@ then
    case $? in
        0)
                clear                
-               echo "\"$FILEPATH\" chosen";;
+               echo "\"$FILEPATH" chosen";;
        1)
                clear
                echo "Cancel pressed."
