@@ -69,10 +69,14 @@ case $? in
 		echo "\"$FILEPATH\" chosen";;
 	1)
 		clear
-		echo "Cancel pressed.";;
+		echo "Cancel pressed."
+		yes_no
+		;;
 	255)
 		clear
-		echo "Box closed.";;
+		echo "Box closed."
+		yes_no
+		;;
 esac
 }
 
