@@ -39,7 +39,7 @@ dialog --title "Define your own file/path?" \
 response=$?
 case $response in
     0)
-    #send user to get path dialog
+    #send user to set_Path dialog
         clear
 	set_Path
 	
@@ -62,22 +62,27 @@ set_Path () {
 DIALOG=${DIALOG=dialog}
 
 FILEPATH=`$DIALOG --stdout --title "Please choose a file" --fselect $HOME/ 14 48`
-
-case $? in
-	0)
-		clear
-		echo "\"$FILEPATH\" chosen";;
-	1)
-		clear
-		echo "Cancel pressed."
-		yes_no
-		;;
-	255)
-		clear
-		echo "Box closed."
-		yes_no
-		;;
-esac
+if [ -e "$FILEPATH" ]
+then 
+   case $? in
+       0)
+               clear
+                
+               echo "\"$FILEPATH\" chosen";;
+       1)
+               clear
+               echo "Cancel pressed."
+               yes_no
+               ;;
+       255)
+               clear
+               echo "Box closed."
+               yes_no
+               ;;
+   esac
+else
+    yes_no
+fi
 }
 
 
@@ -113,7 +118,9 @@ while :
     done
 }
 
-
+trick_Step () {
+next_Step
+}
 #this function is the final slide of the actual program. this will just ask if you would like to restart the program for another
 #search
 next_Step () {
@@ -133,10 +140,10 @@ case $reFind in
             exit
 	    ;;
 	    
-#could break	    *) 
-#need test	    echo "ERROR. Please press y or n."
-#	    next_step
-#            ;;
+	    *) 
+	    echo "ERROR. Please press y or n."
+	    trick_Step
+            ;;
 esac
 }
 
