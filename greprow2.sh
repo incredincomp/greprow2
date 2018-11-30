@@ -65,19 +65,19 @@ FILEPATH=`$DIALOG --stdout --title "Please choose a file" --fselect $HOME/ 14 48
 if [ -e "$FILEPATH" ]
 then 
    case $? in
-       0)
-               clear                
-               echo "\"$FILEPATH\" chosen";;
-       1)
-               clear
-               echo "Cancel pressed."
-               yes_no
-               ;;
-       255)
-               clear
-               echo "Box closed."
-               yes_no
-               ;;
+        0)
+                clear                
+                echo "\"$FILEPATH\" chosen";;
+        1)
+                clear
+                echo "Cancel pressed."
+                yes_no
+                ;;
+        255)
+                clear
+                echo "Box closed."
+                yes_no
+                ;;
    esac
 else
     yes_no
@@ -120,7 +120,7 @@ while :
 #This doesnt exist
 #Its just my way of tricking bash into doing what I want
 trick_Step () {
-next_Step
+    next_Step
 }
 
 #this function is the final slide of the actual program. this will just ask if you would like to restart the program for another
@@ -131,21 +131,20 @@ echo -n "Would you like to run another search? [y or n]: "
 read reFind
 printf '%*s\n' "${COLUMNS:-$(tput cols)}" '' | tr ' ' -
 case $reFind in
-               [yY] )
-	             next_Search
+        [yY] )
+	        next_Search
+                ;;
+		     
+	[nN] )
+	        echo "Okay, I hope you found me useful! See you next time!"
+                printf '%*s\n' "${COLUMNS:-$(tput cols)}" '' | tr ' ' -
+                exit
+	        ;;
 	    
-	    
-                     ;;
-	       [nN] )
-	             echo "Okay, I hope you found me useful! See you next time!"
-                     printf '%*s\n' "${COLUMNS:-$(tput cols)}" '' | tr ' ' -
-                     exit
-	             ;;
-	    
-	       *) 
-	             echo "ERROR. Please press y or n."
-	             trick_Step
-                     ;;
+	*) 
+	        echo "ERROR. Please press y or n."
+	        trick_Step
+                ;;
 esac
 }
 
