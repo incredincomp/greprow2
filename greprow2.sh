@@ -26,10 +26,10 @@ set -o nounset                              # Treat unset variables as an error
 #this is just a weird function that I dont think i need.  at the end tho, part of the switch case calls for a repeat of the
 #program functions so hey, why not make it easier on the program and compile it here?
 next_Search () {
-yes_no
-what_Find
-grep_Append
-next_Step
+    yes_no
+    what_Find
+    grep_Append
+    next_Step
 }
 
 #function to ask user if they would like to define their own file path, if not, the program declares greprow2/log.txt as input
@@ -39,24 +39,25 @@ dialog --title "Define your own file/path?" \
 response=$?
 case $response in
     0)
-    #send user to set_Path dialog
-       clear
-       set_Path
-       ;;
+    #if yes/send user to set_Path dialog
+               clear
+               set_Path
+               ;;
     1)
-       clear
-       echo "Okay, we set the path as $PWD\log.txt."
-       FILEPATH="$PWD/log.txt"
-       ;;
+    #if no/set predefined path
+               clear
+               echo "Okay, we set the path as $PWD\log.txt."
+               FILEPATH="$PWD/log.txt"
+               ;;
     255)
-       clear
-       echo "[ESC] key pressed."
-       ;;
+               clear
+               echo "[ESC] key pressed."
+               ;;
 esac
 }
 
-#this function brings up a dialog menu to help you select your file path.  dialog boxes are slightly difficult to navigate for
-#noobs so i need to figure out either a way to tell a user how to use it, or change the set_Path function again
+#this function brings up a dialog menu to help you select your file path.  Dialog boxes are not new-user friendly
+#so great care needs to be taken when using the fselect dialog menu.  
 set_Path () {
 DIALOG=${DIALOG=dialog}
 
@@ -86,13 +87,13 @@ fi
 
 #this function collects the variable that is used to search the specified file and stores it as lookFor
 what_Find () {  
-echo "	"
-echo -n "What information would you like to find? "
-read lookFor
-echo "	"
-echo "Looking for $lookFor... Please wait... "
-echo "Search Start Time : " $(date -u)
-printf '%*s\n' "${COLUMNS:-$(tput cols)}" '' | tr ' ' -
+    echo "	"
+    echo -n "What information would you like to find? "
+        read lookFor
+    echo "	"
+    echo "Looking for $lookFor... Please wait... "
+    echo "Search Start Time : " $(date -u)
+    printf '%*s\n' "${COLUMNS:-$(tput cols)}" '' | tr ' ' -
 }
 
 grep_Append () {
@@ -116,9 +117,12 @@ while :
  done
 }
 
+#This doesnt exist
+#Its just my way of tricking bash into doing what I want
 trick_Step () {
 next_Step
 }
+
 #this function is the final slide of the actual program. this will just ask if you would like to restart the program for another
 #search
 next_Step () {
