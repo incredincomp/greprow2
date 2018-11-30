@@ -14,11 +14,11 @@
 #  REQUIREMENTS: you need to have a .txt file in a location you know
 #		
 #          BUGS: none as far as I know of in its current state
-#         NOTES: v1.2.2
+#         NOTES: v1.3.0
 #        AUTHOR: @incredincomp & @Venom404
 #  ORGANIZATION: 
 #       CREATED: 09/20/2018 06:32:54 PM
-#      REVISION:  11/27/2018 10:35:00 AM
+#      REVISION:  11/30/2018 10:40:00 AM
 #===============================================================================
 
 set -o nounset                              # Treat unset variables as an error
@@ -38,18 +38,18 @@ dialog --title "Define your own file/path?" \
 --yesno "If you select no, $PWD/log.txt will be used." 7 60
 response=$?
 case $response in
-    0)
+   0)
     #if yes/send user to set_Path dialog
                clear
                set_Path
                ;;
-    1)
+   1)
     #if no/set predefined path
                clear
                echo "Okay, we set the path as $PWD\log.txt."
                FILEPATH="$PWD/log.txt"
                ;;
-    255)
+   255)
                clear
                echo "[ESC] key pressed."
                ;;
@@ -65,22 +65,22 @@ FILEPATH=`$DIALOG --stdout --title "Please choose a file" --fselect $HOME/ 14 48
 if [ -e "$FILEPATH" ]
 then 
    case $? in
-        0)
-                clear                
-                echo "\"$FILEPATH\" chosen";;
-        1)
-                clear
-                echo "Cancel pressed."
-                yes_no
-                ;;
-        255)
-                clear
-                echo "Box closed."
-                yes_no
-                ;;
+       0)
+               clear                
+               echo "\"$FILEPATH\" chosen";;
+       1)
+               clear
+               echo "Cancel pressed."
+               yes_no
+               ;;
+       255)
+               clear
+               echo "Box closed."
+               yes_no
+               ;;
    esac
 else
-    yes_no
+   yes_no
 fi
 }
 
@@ -129,22 +129,23 @@ next_Step () {
 echo "	"
 echo -n "Would you like to run another search? [y or n]: "
 read reFind
+#this line prints a pretty --------- across the length of the terminal
 printf '%*s\n' "${COLUMNS:-$(tput cols)}" '' | tr ' ' -
 case $reFind in
-        [yY] )
-	        next_Search
-                ;;
+   [yY] )
+       next_Search
+       ;;
 		     
-	[nN] )
-	        echo "Okay, I hope you found me useful! See you next time!"
-                printf '%*s\n' "${COLUMNS:-$(tput cols)}" '' | tr ' ' -
-                exit
-	        ;;
+   [nN] )
+       echo "Okay, I hope you found me useful! See you next time!"
+       printf '%*s\n' "${COLUMNS:-$(tput cols)}" '' | tr ' ' -
+       exit
+       ;;
 	    
-	*) 
-	        echo "ERROR. Please press y or n."
-	        trick_Step
-                ;;
+   *) 
+       echo "ERROR. Please press y or n."
+       trick_Step
+       ;;
 esac
 }
 
