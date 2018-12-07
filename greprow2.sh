@@ -35,7 +35,7 @@ next_Search () {
 #function to ask user if they would like to define their own file path, if not, the program declares greprow2/log.txt as input
 yes_no () {
 dialog --title "Define your own file/path?" \
---yesno "If you select no, $PWD/log.txt will be used." 7 60
+--yesno --defaultno "If you select no, $PWD/log.txt will be used." 7 60
 response=$?
 case $response in
    0)
