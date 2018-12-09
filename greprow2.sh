@@ -13,7 +13,8 @@
 #       OPTIONS: ---
 #  REQUIREMENTS: you need to have a .txt file in a location you know
 #		
-#          BUGS: none as far as I know of in its current state
+#          BUGS: will not work if you use a space in the search term, also, still creates a file even if script returns an error
+#                for no search term found
 #         NOTES: v1.3.0
 #        AUTHOR: @incredincomp & @Venom404
 #  ORGANIZATION: 
